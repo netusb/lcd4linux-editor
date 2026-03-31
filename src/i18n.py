@@ -1,7 +1,7 @@
 # LCD4Linux Visual Editor - 涓枃鐣岄潰
 
 UI_TEXT = {
-    # 涓荤獥鍙ｆ爣棰?    "app_title": "LCD4Linux 鍙鍖栫紪杈戝櫒 - AX206 閰嶇疆宸ュ叿",
+    # 涓荤獥鍙ｆ爣棰?    "app_title": "LCD4Linux 鍙鍖栫紪杈戝櫒 - 澶氶┍鍔ㄦ敮鎸佺増",
     
     # 鑿滃崟
     "menu_file": "鏂囦欢",
@@ -34,8 +34,9 @@ UI_TEXT = {
     # 鏄剧ず鍣ㄩ厤缃?    "display_settings": "鏄剧ず鍣ㄨ缃?,
     "label_name": "鍚嶇О:",
     "label_driver": "椹卞姩:",
-    "label_port": "绔彛:",
-    "label_font": "瀛椾綋:",
+    "label_port": "绔彛/璁惧:",
+    "label_font": "瀛椾綋鏂囦欢:",
+    "label_font_size": "瀛楀彿:",
     "label_width": "瀹藉害:",
     "label_height": "楂樺害:",
     "label_orientation": "鏂瑰悜:",
@@ -43,6 +44,15 @@ UI_TEXT = {
     "label_colors": "棰滆壊",
     "label_foreground": "鍓嶆櫙鑹?",
     "label_background": "鑳屾櫙鑹?",
+    "label_basecolor": "鍩鸿壊:",
+    "label_bpp": "棰滆壊娣卞害:",
+    "label_model": "鍨嬪彿:",
+    "label_speed": "娉㈢壒鐜?",
+    "label_contrast": "瀵规瘮搴?",
+    "label_brightness": "浜害:",
+    "label_vnc_port": "VNC绔彛:",
+    "label_x11_display": "X11鏄剧ず:",
+    "label_driver_category": "椹卞姩鍒嗙被:",
     
     # 鏂瑰悜閫夐」
     "orientation_landscape": "妯悜",
@@ -164,28 +174,57 @@ UI_TEXT = {
     "help_title": "甯姪",
     "help_content": """LCD4Linux 鍙鍖栫紪杈戝櫒 - 甯姪
 
-鏈伐鍏风敤浜庡垱寤?lcd4linux 閰嶇疆鏂囦欢锛屼笓涓?AX206 DPF 鏄剧ず鍣ㄨ璁°€?
+鏈伐鍏风敤浜庡垱寤?lcd4linux 閰嶇疆鏂囦欢锛屾敮鎸佸绉嶆樉绀哄櫒椹卞姩銆?
 涓昏鍔熻兘:
 - 鍙鍖栧竷灞€缂栬緫鍣紝鏀寔鎷栨斁
-- 澶氱缁勪欢绫诲瀷 (鏂囨湰銆佽繘搴︽潯銆佸浘鐗囥€佽鏃跺櫒銆佸浘鏍?
+- 澶氱缁勪欢绫诲瀷 (鏂囨湰銆佽繘搴︽潯銆佸浘鐗囥€佽鏃跺櫒銆佸浘鏍囥€佹姌绾垮浘銆佸姬褰华琛?
+- 鏀寔澶氱鏄剧ず鍣ㄩ┍鍔?(DPF, VNC, SamsungSPF, X11, 绛?
+- 鏀寔涓枃鏄剧ず (闇€瑕侀厤缃?TrueType 瀛椾綋)
 - 瀹炴椂棰勮
 - 瀵煎嚭 lcd4linux.conf 鏍煎紡閰嶇疆
 
 蹇€熷叆闂?
-1. 閰嶇疆鏄剧ず鍣ㄨ缃?2. 浣跨敤鎸夐挳娣诲姞缁勪欢
-3. 鎷栧姩缁勪欢璋冩暣浣嶇疆
-4. 瀵煎嚭閰嶇疆鏂囦欢
+1. 閫夋嫨鏄剧ず鍣ㄩ┍鍔ㄧ被鍨?2. 閰嶇疆鏄剧ず鍣ㄥ弬鏁?3. 浣跨敤鎸夐挳娣诲姞缁勪欢
+4. 鎷栧姩缁勪欢璋冩暣浣嶇疆
+5. 瀵煎嚭閰嶇疆鏂囦欢
+
+鏀寔鐨勯┍鍔?
+- DPF: 鏁扮爜鐩告 (AX206绛?
+- VNC: VNC鏈嶅姟鍣?- SamsungSPF: 涓夋槦鐢靛瓙鐩告
+- X11: X11鏄剧ず
+- T6963: T6963 LCD鎺у埗鍣?- G15: Logitech G15閿洏
+- Framebuffer: Linux甯х紦鍐?- 浠ュ強鏇村...
 
 鏇村淇℃伅璇疯闂?
 https://wiki.lcd4linux.tk/
+https://github.com/netusb/lcd4linux-display-chinese
 """,
     
     "about_title": "鍏充簬",
     "about_content": """LCD4Linux 鍙鍖栫紪杈戝櫒
-鐗堟湰 1.0
+鐗堟湰 2.0
 
-涓€娆句笓涓?AX206 DPF 鏄剧ず鍣ㄨ璁＄殑 lcd4linux 鍙鍖栭厤缃伐鍏枫€?
-绫讳技浜?AIDA64 LCD Manager銆?""",
+涓€娆炬敮鎸佸绉嶆樉绀哄櫒椹卞姩鐨?lcd4linux 鍙鍖栭厤缃伐鍏枫€?
+鏀寔椹卞姩:
+- DPF (AX206鏁扮爜鐩告)
+- VNC
+- SamsungSPF
+- T6963
+- G15
+- X11
+- Framebuffer
+- HD44780
+- 绛?0+绉嶉┍鍔?
+鏀寔缁勪欢:
+- Text (鏂囨湰)
+- Bar (杩涘害鏉?
+- Image (鍥剧墖)
+- Timer (璁℃椂鍣?
+- Icon (鍥炬爣)
+- Graph (鎶樼嚎鍥?
+- Arc (寮у舰浠〃)
+
+绫讳技 AIDA64 LCD Manager銆?""",
     
     # 缁勪欢绫诲瀷
     "widget_type_text": "鏂囨湰",
@@ -206,14 +245,100 @@ https://wiki.lcd4linux.tk/
     "file_save_title": "鍙﹀瓨涓?,
     "file_open_title": "鎵撳紑椤圭洰",
     "file_export_title": "瀵煎嚭 lcd4linux.conf",
+    
+    # 椹卞姩鍒嗙被
+    "driver_category_graphic": "鍥惧舰鏄剧ず",
+    "driver_category_character": "瀛楃鏄剧ず",
+    "driver_category_usb": "USB璁惧",
+    "driver_category_vfd": "VFD鏄剧ず",
+    "driver_category_lcd": "LCD鎺у埗鍣?,
+    "driver_category_network": "缃戠粶璁惧",
+    "driver_category_other": "鍏朵粬璁惧",
+}
+
+# 椹卞姩涓枃鍚嶇О鏄犲皠
+DRIVER_NAMES = {
+    "DPF": "鏁扮爜鐩告 (AX206)",
+    "VNC": "VNC鏈嶅姟鍣?,
+    "SamsungSPF": "涓夋槦鐢靛瓙鐩告",
+    "T6963": "T6963 LCD鎺у埗鍣?,
+    "G15": "Logitech G15閿洏",
+    "X11": "X11鏄剧ず",
+    "Framebuffer": "Linux甯х紦鍐?,
+    "HD44780": "HD44780瀛楃LCD",
+    "Curses": "Curses缁堢",
+    "Image": "鍥剧墖杈撳嚭",
+    "NULL": "绌鸿緭鍑?,
+    "Sample": "绀轰緥杈撳嚭",
+    "AW4220": "AW4220 LCD",
+    "BWCT": "BWCT鏄剧ず鍣?,
+    "BeckmannEgle": "BeckmannEgle",
+    "Crystalfontz": "Crystalfontz LCD",
+    "Cwlinux": "Cwlinux LCD",
+    "D4D": "D4D鏄剧ず鍣?,
+    "EA232graphic": "EA232鍥惧舰鏄剧ず",
+    "EFN": "EFN鏄剧ず鍣?,
+    "FW8888": "FW8888鏄剧ず鍣?,
+    "FutabaVFD": "Futaba VFD",
+    "GLCD2USB": "GLCD2USB",
+    "IRLCD": "IRLCD",
+    "LCD2USB": "LCD2USB",
+    "LCDLinux": "LCDLinux",
+    "LCDTerm": "LCD缁堢",
+    "LEDMatrix": "LED鐭╅樀",
+    "LPH7508": "LPH7508 LCD",
+    "LUIse": "LUIse",
+    "LW_ABP": "LW_ABP",
+    "M50530": "M50530 LCD",
+    "MatrixOrbital": "MatrixOrbital",
+    "MatrixOrbitalGX": "MatrixOrbitalGX",
+    "MilfordInstruments": "MilfordInstruments",
+    "Newhaven": "Newhaven LCD",
+    "Noritake": "Noritake VFD",
+    "PHAnderson": "PHAnderson",
+    "PICGraphic": "PIC鍥惧舰",
+    "Pertelian": "Pertelian",
+    "RouterBoard": "RouterBoard",
+    "ShuttleVFD": "Shuttle VFD",
+    "SimpleLCD": "SimpleLCD",
+    "TeakLCM": "TeakLCM",
+    "Trefon": "Trefon",
+    "USBHUB": "USBHUB",
+    "USBLCD": "USBLCD",
+    "WincorNixdorf": "WincorNixdorf",
+    "mdm166a": "mdm166a",
+    "picoLCD": "picoLCD",
+    "picoLCDGraphic": "picoLCD Graphic",
+    "serdisplib": "serdisplib",
+    "st2205": "ST2205 LCD",
+    "ula200": "ula200",
+}
+
+# 椹卞姩鍙傛暟鎻愮ず
+DRIVER_HELP = {
+    "DPF": "鏁扮爜鐩告椹卞姩锛岄渶瑕丄X206鑺墖鐨勮澶?,
+    "VNC": "VNC鏈嶅姟鍣紝闇€瑕佽缃鍙ｅ彿",
+    "SamsungSPF": "涓夋槦鐢靛瓙鐩告椹卞姩",
+    "X11": "X11鏄剧ず椹卞姩锛岄渶瑕佽缃瓺ISPLAY",
+    "Framebuffer": "Linux甯х紦鍐茶澶?,
+    "HD44780": "HD44780瀛楃LCD鎺у埗鍣?,
+    "T6963": "T6963鍥惧舰LCD鎺у埗鍣?,
+    "G15": "Logitech G15閿洏LCD",
 }
 
 def get_text(key, **kwargs):
     """鑾峰彇缈昏瘧鏂囨湰"""
     text = UI_TEXT.get(key, key)
     if kwargs:
-        text = text.format(**kwargs)
+        try:
+            text = text.format(**kwargs)
+        except:
+            pass
     return text
+
+def get_driver_name(driver):
+    """鑾峰彇椹卞姩鐨勪腑鏂囧悕绉?""
+    return DRIVER_NAMES.get(driver, driver)
 
 def set_language(lang):
     """璁剧疆璇█锛堥鐣欙級"""
