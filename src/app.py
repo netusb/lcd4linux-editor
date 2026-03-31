@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 LCD4Linux Visual Editor - Entry Point
-入口文件 - 不使用相对导入
-"""
+鍏ュ彛鏂囦欢 - 涓嶄娇鐢ㄧ浉瀵瑰鍏?"""
 
 import sys
 import os
@@ -37,6 +36,8 @@ from widgets.bar_widget import BarWidgetConfig
 from widgets.image_widget import ImageWidgetConfig
 from widgets.timer_widget import TimerWidgetConfig
 from widgets.icon_widget import IconWidgetConfig
+from widgets.graph_widget import GraphWidgetConfig
+from widgets.arc_widget import ArcWidgetConfig
 from utils.config_generator import ConfigGenerator
 from i18n import get_text, UI_TEXT
 
@@ -144,9 +145,9 @@ class LCD4LinuxEditor(tk.Tk):
         toolbar = ttk.Frame(parent, style="Toolbar.TFrame")
         toolbar.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
 
-        ttk.Button(toolbar, text=UI_TEXT["menu_new"].replace("新建项目", "新建"), style="ToolButton.TButton", command=self.new_project).pack(side=tk.LEFT, padx=2)
-        ttk.Button(toolbar, text=UI_TEXT["menu_open"].replace("打开...", "打开"), style="ToolButton.TButton", command=self.open_project).pack(side=tk.LEFT, padx=2)
-        ttk.Button(toolbar, text=UI_TEXT["menu_save"].replace("保存", "保存"), style="ToolButton.TButton", command=self.save_project).pack(side=tk.LEFT, padx=2)
+        ttk.Button(toolbar, text=UI_TEXT["menu_new"].replace("鏂板缓椤圭洰", "鏂板缓"), style="ToolButton.TButton", command=self.new_project).pack(side=tk.LEFT, padx=2)
+        ttk.Button(toolbar, text=UI_TEXT["menu_open"].replace("鎵撳紑...", "鎵撳紑"), style="ToolButton.TButton", command=self.open_project).pack(side=tk.LEFT, padx=2)
+        ttk.Button(toolbar, text=UI_TEXT["menu_save"].replace("淇濆瓨", "淇濆瓨"), style="ToolButton.TButton", command=self.save_project).pack(side=tk.LEFT, padx=2)
 
         notebook = ttk.Notebook(parent)
         notebook.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
@@ -250,6 +251,8 @@ class LCD4LinuxEditor(tk.Tk):
         ttk.Button(toolbar, text=UI_TEXT["btn_add_image"], command=lambda: self.add_widget(WidgetType.IMAGE)).pack(side=tk.LEFT, padx=2)
         ttk.Button(toolbar, text=UI_TEXT["btn_add_timer"], command=lambda: self.add_widget(WidgetType.TIMER)).pack(side=tk.LEFT, padx=2)
         ttk.Button(toolbar, text=UI_TEXT["btn_add_icon"], command=lambda: self.add_widget(WidgetType.ICON)).pack(side=tk.LEFT, padx=2)
+        ttk.Button(toolbar, text=UI_TEXT["btn_add_graph"], command=lambda: self.add_widget(WidgetType.GRAPH)).pack(side=tk.LEFT, padx=2)
+        ttk.Button(toolbar, text=UI_TEXT["btn_add_arc"], command=lambda: self.add_widget(WidgetType.ARC)).pack(side=tk.LEFT, padx=2)
 
         tree_frame = ttk.Frame(widgets_tab)
         tree_frame.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
@@ -400,10 +403,12 @@ class LCD4LinuxEditor(tk.Tk):
         y = int(10 + placement.position.y * self.canvas_scale)
 
         colors = {WidgetType.TEXT: "#4a9eff", WidgetType.BAR: "#ff6b4a",
-                  WidgetType.IMAGE: "#4aff6b", WidgetType.TIMER: "#ffaa4a", WidgetType.ICON: "#aa4aff"}
+                  WidgetType.IMAGE: "#4aff6b", WidgetType.TIMER: "#ffaa4a", WidgetType.ICON: "#aa4aff",
+                  WidgetType.GRAPH: "#00ffaa", WidgetType.ARC: "#ffaa00"}
         wtype_names = {WidgetType.TEXT: UI_TEXT["widget_type_text"], WidgetType.BAR: UI_TEXT["widget_type_bar"],
                        WidgetType.IMAGE: UI_TEXT["widget_type_image"], WidgetType.TIMER: UI_TEXT["widget_type_timer"],
-                       WidgetType.ICON: UI_TEXT["widget_type_icon"]}
+                       WidgetType.ICON: UI_TEXT["widget_type_icon"], WidgetType.GRAPH: UI_TEXT["widget_type_graph"],
+                       WidgetType.ARC: UI_TEXT["widget_type_arc"]}
 
         width = 80 * self.canvas_scale
         height = 30 * self.canvas_scale
@@ -411,6 +416,10 @@ class LCD4LinuxEditor(tk.Tk):
             width, height = 60 * self.canvas_scale, 60 * self.canvas_scale
         elif placement.widget_type == WidgetType.BAR:
             width, height = 100 * self.canvas_scale, 20 * self.canvas_scale
+        elif placement.widget_type == WidgetType.GRAPH:
+            width, height = 100 * self.canvas_scale, 40 * self.canvas_scale
+        elif placement.widget_type == WidgetType.ARC:
+            width, height = 80 * self.canvas_scale, 50 * self.canvas_scale
 
         rect = self.canvas.create_rectangle(x, y, x + width, y + height,
                                             fill=colors.get(placement.widget_type, "#888888"),
@@ -472,7 +481,8 @@ class LCD4LinuxEditor(tk.Tk):
         name = f"{widget_type.value.lower()}_{len(self.widgets) + 1}"
         config_classes = {WidgetType.TEXT: TextWidgetConfig, WidgetType.BAR: BarWidgetConfig,
                          WidgetType.IMAGE: ImageWidgetConfig, WidgetType.TIMER: TimerWidgetConfig,
-                         WidgetType.ICON: IconWidgetConfig}
+                         WidgetType.ICON: IconWidgetConfig, WidgetType.GRAPH: GraphWidgetConfig,
+                         WidgetType.ARC: ArcWidgetConfig}
         config = config_classes.get(widget_type, TextWidgetConfig)()
         config.name = name
         self.widgets[name] = config
@@ -616,18 +626,18 @@ class LCD4LinuxEditor(tk.Tk):
                 self.vars_tree.insert("", "end", iid=name, values=(value,))
             dialog.destroy()
 
-        ttk.Button(dialog, text="添加", command=save).grid(row=2, column=0, columnspan=2, pady=10)
+        ttk.Button(dialog, text="娣诲姞", command=save).grid(row=2, column=0, columnspan=2, pady=10)
 
     def update_layout_info(self):
         layout = self.project.layouts[0] if self.project.layouts else None
         if not layout:
             return
-        info = f"布局: {layout.name}\n组件数: {len(layout.placements)}\n\n组件位置:\n"
+        info = f"甯冨眬: {layout.name}\n缁勪欢鏁? {len(layout.placements)}\n\n缁勪欢浣嶇疆:\n"
         for p in layout.placements:
             widget = self.widgets.get(p.widget_name)
             if widget:
                 info += f"  - {p.widget_name} ({widget.__class__.__name__.replace('WidgetConfig', '')})\n"
-                info += f"    位置: ({p.position.x}, {p.position.y})\n    图层: {p.layer}\n"
+                info += f"    浣嶇疆: ({p.position.x}, {p.position.y})\n    鍥惧眰: {p.layer}\n"
         self.layout_info.config(state=tk.NORMAL)
         self.layout_info.delete(1.0, tk.END)
         self.layout_info.insert(1.0, info)
@@ -695,7 +705,8 @@ class LCD4LinuxEditor(tk.Tk):
     def _create_widget_from_config(self, placement):
         widget_classes = {WidgetType.TEXT: TextWidgetConfig, WidgetType.BAR: BarWidgetConfig,
                           WidgetType.IMAGE: ImageWidgetConfig, WidgetType.TIMER: TimerWidgetConfig,
-                          WidgetType.ICON: IconWidgetConfig}
+                          WidgetType.ICON: IconWidgetConfig, WidgetType.GRAPH: GraphWidgetConfig,
+                          WidgetType.ARC: ArcWidgetConfig}
         return widget_classes.get(placement.widget_type, TextWidgetConfig)(name=placement.widget_name)
 
     def save_project(self):
@@ -775,10 +786,21 @@ class WidgetEditorWindow(tk.Toplevel):
         style_tab = ttk.Frame(notebook, padding=10)
         notebook.add(style_tab, text=UI_TEXT["tab_style"])
         self._create_style_tab(style_tab)
+        
+        widget_class = self.widget_config.__class__.__name__
+        if widget_class == "GraphWidgetConfig":
+            graph_tab = ttk.Frame(notebook, padding=10)
+            notebook.add(graph_tab, text="鍥捐〃璁剧疆")
+            self._create_graph_tab(graph_tab)
+        elif widget_class == "ArcWidgetConfig":
+            arc_tab = ttk.Frame(notebook, padding=10)
+            notebook.add(arc_tab, text="浠〃璁剧疆")
+            self._create_arc_tab(arc_tab)
+        
         button_frame = ttk.Frame(main_frame)
         button_frame.pack(fill=tk.X, pady=10)
-        ttk.Button(button_frame, text="确定", command=self.save_and_close).pack(side=tk.RIGHT, padx=5)
-        ttk.Button(button_frame, text="取消", command=self.destroy).pack(side=tk.RIGHT)
+        ttk.Button(button_frame, text="纭畾", command=self.save_and_close).pack(side=tk.RIGHT, padx=5)
+        ttk.Button(button_frame, text="鍙栨秷", command=self.destroy).pack(side=tk.RIGHT)
 
     def _create_general_tab(self, parent):
         row = 0
@@ -822,13 +844,143 @@ class WidgetEditorWindow(tk.Toplevel):
             entry.grid(row=row, column=2, sticky=tk.W, pady=5)
             row += 1
 
+    def _create_graph_tab(self, parent):
+        row = 0
+        ttk.Label(parent, text=UI_TEXT["label_expression"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.graph_expr_var = tk.StringVar(value=getattr(self.widget_config, "expression", ""))
+        ttk.Entry(parent, textvariable=self.graph_expr_var, width=30).grid(row=row, column=1, sticky=tk.W, pady=5)
+        row += 1
+        
+        ttk.Label(parent, text=UI_TEXT["label_graph_width"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.graph_width_var = tk.StringVar(value=str(getattr(self.widget_config, "width", 100)))
+        ttk.Entry(parent, textvariable=self.graph_width_var, width=30).grid(row=row, column=1, sticky=tk.W, pady=5)
+        row += 1
+        
+        ttk.Label(parent, text=UI_TEXT["label_graph_height"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.graph_height_var = tk.StringVar(value=str(getattr(self.widget_config, "height", 40)))
+        ttk.Entry(parent, textvariable=self.graph_height_var, width=30).grid(row=row, column=1, sticky=tk.W, pady=5)
+        row += 1
+        
+        ttk.Label(parent, text=UI_TEXT["label_min"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.graph_min_var = tk.StringVar(value=str(getattr(self.widget_config, "min_val", 0)))
+        ttk.Entry(parent, textvariable=self.graph_min_var, width=30).grid(row=row, column=1, sticky=tk.W, pady=5)
+        row += 1
+        
+        ttk.Label(parent, text=UI_TEXT["label_max"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.graph_max_var = tk.StringVar(value=str(getattr(self.widget_config, "max_val", 100)))
+        ttk.Entry(parent, textvariable=self.graph_max_var, width=30).grid(row=row, column=1, sticky=tk.W, pady=5)
+        row += 1
+        
+        ttk.Label(parent, text=UI_TEXT["label_graph_points"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.graph_points_var = tk.StringVar(value=str(getattr(self.widget_config, "points", 50)))
+        ttk.Entry(parent, textvariable=self.graph_points_var, width=30).grid(row=row, column=1, sticky=tk.W, pady=5)
+        row += 1
+        
+        ttk.Label(parent, text=UI_TEXT["label_graph_style"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.graph_style_var = tk.StringVar(value=str(getattr(self.widget_config, "style", 0)))
+        ttk.Combobox(parent, textvariable=self.graph_style_var, values=["0-绾挎潯", "1-濉厖"], width=28).grid(row=row, column=1, sticky=tk.W, pady=5)
+        row += 1
+        
+        ttk.Label(parent, text=UI_TEXT["label_graph_color"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.graph_color_var = tk.StringVar(value=getattr(self.widget_config, "color", "00FF00"))
+        ttk.Entry(parent, textvariable=self.graph_color_var, width=20).grid(row=row, column=1, sticky=tk.W, pady=5)
+        ttk.Button(parent, text="...", width=3, command=lambda: self._choose_color("color", self.graph_color_var.get())).grid(row=row, column=2, sticky=tk.W, padx=5)
+        row += 1
+        
+        ttk.Label(parent, text=UI_TEXT["label_graph_fill"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.graph_fill_var = tk.StringVar(value=getattr(self.widget_config, "fill", "003300"))
+        ttk.Entry(parent, textvariable=self.graph_fill_var, width=20).grid(row=row, column=1, sticky=tk.W, pady=5)
+        ttk.Button(parent, text="...", width=3, command=lambda: self._choose_color("fill", self.graph_fill_var.get())).grid(row=row, column=2, sticky=tk.W, padx=5)
+        row += 1
+        
+        ttk.Label(parent, text=UI_TEXT["label_graph_grid"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.graph_grid_var = tk.StringVar(value=getattr(self.widget_config, "grid", "404040"))
+        ttk.Entry(parent, textvariable=self.graph_grid_var, width=20).grid(row=row, column=1, sticky=tk.W, pady=5)
+        ttk.Button(parent, text="...", width=3, command=lambda: self._choose_color("grid", self.graph_grid_var.get())).grid(row=row, column=2, sticky=tk.W, padx=5)
+        row += 1
+        
+        ttk.Label(parent, text=UI_TEXT["label_background"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.graph_bg_var = tk.StringVar(value=getattr(self.widget_config, "bg", "000000"))
+        ttk.Entry(parent, textvariable=self.graph_bg_var, width=20).grid(row=row, column=1, sticky=tk.W, pady=5)
+        ttk.Button(parent, text="...", width=3, command=lambda: self._choose_color("bg", self.graph_bg_var.get())).grid(row=row, column=2, sticky=tk.W, padx=5)
+
+    def _create_arc_tab(self, parent):
+        row = 0
+        ttk.Label(parent, text=UI_TEXT["label_expression"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.arc_expr_var = tk.StringVar(value=getattr(self.widget_config, "expression", ""))
+        ttk.Entry(parent, textvariable=self.arc_expr_var, width=30).grid(row=row, column=1, sticky=tk.W, pady=5)
+        row += 1
+        
+        ttk.Label(parent, text=UI_TEXT["label_graph_width"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.arc_width_var = tk.StringVar(value=str(getattr(self.widget_config, "width", 80)))
+        ttk.Entry(parent, textvariable=self.arc_width_var, width=30).grid(row=row, column=1, sticky=tk.W, pady=5)
+        row += 1
+        
+        ttk.Label(parent, text=UI_TEXT["label_graph_height"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.arc_height_var = tk.StringVar(value=str(getattr(self.widget_config, "height", 50)))
+        ttk.Entry(parent, textvariable=self.arc_height_var, width=30).grid(row=row, column=1, sticky=tk.W, pady=5)
+        row += 1
+        
+        ttk.Label(parent, text=UI_TEXT["label_min"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.arc_min_var = tk.StringVar(value=str(getattr(self.widget_config, "min_val", 0)))
+        ttk.Entry(parent, textvariable=self.arc_min_var, width=30).grid(row=row, column=1, sticky=tk.W, pady=5)
+        row += 1
+        
+        ttk.Label(parent, text=UI_TEXT["label_max"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.arc_max_var = tk.StringVar(value=str(getattr(self.widget_config, "max_val", 100)))
+        ttk.Entry(parent, textvariable=self.arc_max_var, width=30).grid(row=row, column=1, sticky=tk.W, pady=5)
+        row += 1
+        
+        ttk.Label(parent, text=UI_TEXT["label_arc_style"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.arc_style_var = tk.StringVar(value=getattr(self.widget_config, "style", "semi"))
+        ttk.Combobox(parent, textvariable=self.arc_style_var, values=["semi", "quarter", "full"], width=28).grid(row=row, column=1, sticky=tk.W, pady=5)
+        row += 1
+        
+        ttk.Label(parent, text=UI_TEXT["label_arc_ticks"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.arc_ticks_var = tk.StringVar(value=str(getattr(self.widget_config, "ticks", 5)))
+        ttk.Entry(parent, textvariable=self.arc_ticks_var, width=30).grid(row=row, column=1, sticky=tk.W, pady=5)
+        row += 1
+        
+        ttk.Label(parent, text=UI_TEXT["label_arc_minor"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.arc_minor_var = tk.StringVar(value=str(getattr(self.widget_config, "minor", 5)))
+        ttk.Entry(parent, textvariable=self.arc_minor_var, width=30).grid(row=row, column=1, sticky=tk.W, pady=5)
+        row += 1
+        
+        ttk.Label(parent, text=UI_TEXT["label_arc_thickness"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.arc_thickness_var = tk.StringVar(value=str(getattr(self.widget_config, "thickness", 8)))
+        ttk.Entry(parent, textvariable=self.arc_thickness_var, width=30).grid(row=row, column=1, sticky=tk.W, pady=5)
+        row += 1
+        
+        ttk.Label(parent, text=UI_TEXT["label_arc_arc"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.arc_arc_var = tk.StringVar(value=getattr(self.widget_config, "arc", "404040"))
+        ttk.Entry(parent, textvariable=self.arc_arc_var, width=20).grid(row=row, column=1, sticky=tk.W, pady=5)
+        ttk.Button(parent, text="...", width=3, command=lambda: self._choose_color("arc", self.arc_arc_var.get())).grid(row=row, column=2, sticky=tk.W, padx=5)
+        row += 1
+        
+        ttk.Label(parent, text=UI_TEXT["label_arc_needle"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.arc_needle_var = tk.StringVar(value=getattr(self.widget_config, "needle", "FF0000"))
+        ttk.Entry(parent, textvariable=self.arc_needle_var, width=20).grid(row=row, column=1, sticky=tk.W, pady=5)
+        ttk.Button(parent, text="...", width=3, command=lambda: self._choose_color("needle", self.arc_needle_var.get())).grid(row=row, column=2, sticky=tk.W, padx=5)
+        row += 1
+        
+        ttk.Label(parent, text=UI_TEXT["label_arc_center"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.arc_center_var = tk.StringVar(value=getattr(self.widget_config, "center", "808080"))
+        ttk.Entry(parent, textvariable=self.arc_center_var, width=20).grid(row=row, column=1, sticky=tk.W, pady=5)
+        ttk.Button(parent, text="...", width=3, command=lambda: self._choose_color("center", self.arc_center_var.get())).grid(row=row, column=2, sticky=tk.W, padx=5)
+        row += 1
+        
+        ttk.Label(parent, text=UI_TEXT["label_background"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.arc_bg_var = tk.StringVar(value=getattr(self.widget_config, "bg", "000000"))
+        ttk.Entry(parent, textvariable=self.arc_bg_var, width=20).grid(row=row, column=1, sticky=tk.W, pady=5)
+        ttk.Button(parent, text="...", width=3, command=lambda: self._choose_color("bg", self.arc_bg_var.get())).grid(row=row, column=2, sticky=tk.W, padx=5)
+
     def _choose_color(self, attr, current_color):
         color = colorchooser.askcolor(color=current_color, parent=self)
         if color[1]:
             setattr(self.widget_config, attr, color[1].lstrip("#"))
 
     def browse_file(self):
-        filename = filedialog.askopenfilename(title="选择图片", filetypes=[("PNG 图片", "*.png"), ("所有文件", "*.*")])
+        filename = filedialog.askopenfilename(title="閫夋嫨鍥剧墖", filetypes=[("PNG 鍥剧墖", "*.png"), ("鎵€鏈夋枃浠?, "*.*")])
         if filename:
             self.file_var.set(filename)
 
@@ -840,6 +992,35 @@ class WidgetEditorWindow(tk.Toplevel):
             self.widget_config.update = int(self.update_var.get())
         if hasattr(self.widget_config, "expression"):
             self.widget_config.expression = getattr(self.widget_config, "expression", "")
+        
+        widget_class = self.widget_config.__class__.__name__
+        if widget_class == "GraphWidgetConfig":
+            self.widget_config.expression = self.graph_expr_var.get()
+            self.widget_config.width = int(self.graph_width_var.get())
+            self.widget_config.height = int(self.graph_height_var.get())
+            self.widget_config.min_val = float(self.graph_min_var.get())
+            self.widget_config.max_val = float(self.graph_max_var.get())
+            self.widget_config.points = int(self.graph_points_var.get())
+            self.widget_config.style = int(self.graph_style_var.get().split("-")[0])
+            self.widget_config.color = self.graph_color_var.get()
+            self.widget_config.fill = self.graph_fill_var.get()
+            self.widget_config.bg = self.graph_bg_var.get()
+            self.widget_config.grid = self.graph_grid_var.get()
+        elif widget_class == "ArcWidgetConfig":
+            self.widget_config.expression = self.arc_expr_var.get()
+            self.widget_config.width = int(self.arc_width_var.get())
+            self.widget_config.height = int(self.arc_height_var.get())
+            self.widget_config.min_val = float(self.arc_min_var.get())
+            self.widget_config.max_val = float(self.arc_max_var.get())
+            self.widget_config.style = self.arc_style_var.get()
+            self.widget_config.ticks = int(self.arc_ticks_var.get())
+            self.widget_config.minor = int(self.arc_minor_var.get())
+            self.widget_config.thickness = int(self.arc_thickness_var.get())
+            self.widget_config.arc = self.arc_arc_var.get()
+            self.widget_config.needle = self.arc_needle_var.get()
+            self.widget_config.center = self.arc_center_var.get()
+            self.widget_config.bg = self.arc_bg_var.get()
+        
         self.callback(self.widget_config.name, self.widget_config)
         self.destroy()
 
