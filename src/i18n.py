@@ -1,203 +1,220 @@
-# LCD4Linux Visual Editor - 中文界面
+# LCD4Linux Visual Editor - 涓枃鐣岄潰
 
 UI_TEXT = {
-    # 主窗口标题
-    "app_title": "LCD4Linux 可视化编辑器 - AX206 配置工具",
+    # 涓荤獥鍙ｆ爣棰?    "app_title": "LCD4Linux 鍙鍖栫紪杈戝櫒 - AX206 閰嶇疆宸ュ叿",
     
-    # 菜单
-    "menu_file": "文件",
-    "menu_new": "新建项目",
-    "menu_open": "打开...",
-    "menu_save": "保存",
-    "menu_save_as": "另存为...",
-    "menu_export": "导出配置...",
-    "menu_exit": "退出",
+    # 鑿滃崟
+    "menu_file": "鏂囦欢",
+    "menu_new": "鏂板缓椤圭洰",
+    "menu_open": "鎵撳紑...",
+    "menu_save": "淇濆瓨",
+    "menu_save_as": "鍙﹀瓨涓?..",
+    "menu_export": "瀵煎嚭閰嶇疆...",
+    "menu_exit": "閫€鍑?,
     
-    "menu_edit": "编辑",
-    "menu_undo": "撤销",
-    "menu_redo": "重做",
-    "menu_delete": "删除组件",
+    "menu_edit": "缂栬緫",
+    "menu_undo": "鎾ら攢",
+    "menu_redo": "閲嶅仛",
+    "menu_delete": "鍒犻櫎缁勪欢",
     
-    "menu_view": "视图",
-    "menu_zoom_in": "放大",
-    "menu_zoom_out": "缩小",
-    "menu_reset_zoom": "重置缩放",
+    "menu_view": "瑙嗗浘",
+    "menu_zoom_in": "鏀惧ぇ",
+    "menu_zoom_out": "缂╁皬",
+    "menu_reset_zoom": "閲嶇疆缂╂斁",
     
-    "menu_help": "帮助",
-    "menu_docs": "文档",
-    "menu_about": "关于",
+    "menu_help": "甯姪",
+    "menu_docs": "鏂囨。",
+    "menu_about": "鍏充簬",
     
-    # 标签页
-    "tab_display": "显示器",
-    "tab_widgets": "组件",
-    "tab_layout": "布局",
-    "tab_variables": "变量",
+    # 鏍囩椤?    "tab_display": "鏄剧ず鍣?,
+    "tab_widgets": "缁勪欢",
+    "tab_layout": "甯冨眬",
+    "tab_variables": "鍙橀噺",
     
-    # 显示器配置
-    "display_settings": "显示器设置",
-    "label_name": "名称:",
-    "label_driver": "驱动:",
-    "label_port": "端口:",
-    "label_font": "字体:",
-    "label_width": "宽度:",
-    "label_height": "高度:",
-    "label_orientation": "方向:",
-    "label_backlight": "背光:",
-    "label_colors": "颜色",
-    "label_foreground": "前景色:",
-    "label_background": "背景色:",
+    # 鏄剧ず鍣ㄩ厤缃?    "display_settings": "鏄剧ず鍣ㄨ缃?,
+    "label_name": "鍚嶇О:",
+    "label_driver": "椹卞姩:",
+    "label_port": "绔彛:",
+    "label_font": "瀛椾綋:",
+    "label_width": "瀹藉害:",
+    "label_height": "楂樺害:",
+    "label_orientation": "鏂瑰悜:",
+    "label_backlight": "鑳屽厜:",
+    "label_colors": "棰滆壊",
+    "label_foreground": "鍓嶆櫙鑹?",
+    "label_background": "鑳屾櫙鑹?",
     
-    # 方向选项
-    "orientation_landscape": "横向",
-    "orientation_portrait": "纵向",
-    "orientation_rev_landscape": "反向横向",
-    "orientation_rev_portrait": "反向纵向",
+    # 鏂瑰悜閫夐」
+    "orientation_landscape": "妯悜",
+    "orientation_portrait": "绾靛悜",
+    "orientation_rev_landscape": "鍙嶅悜妯悜",
+    "orientation_rev_portrait": "鍙嶅悜绾靛悜",
     
-    # 组件
-    "btn_add_text": "+ 文本",
-    "btn_add_bar": "+ 进度条",
-    "btn_add_image": "+ 图片",
-    "btn_add_timer": "+ 计时器",
-    "btn_add_icon": "+ 图标",
+    # 缁勪欢
+    "btn_add_text": "+ 鏂囨湰",
+    "btn_add_bar": "+ 杩涘害鏉?,
+    "btn_add_image": "+ 鍥剧墖",
+    "btn_add_timer": "+ 璁℃椂鍣?,
+    "btn_add_icon": "+ 鍥炬爣",
+    "btn_add_graph": "+ 鎶樼嚎鍥?,
+    "btn_add_arc": "+ 寮у舰浠〃",
     
-    "column_name": "名称",
-    "column_type": "类型",
-    "column_expression": "表达式",
-    "column_update": "更新(ms)",
+    "column_name": "鍚嶇О",
+    "column_type": "绫诲瀷",
+    "column_expression": "琛ㄨ揪寮?,
+    "column_update": "鏇存柊(ms)",
     
-    # 组件编辑
-    "edit_widget": "编辑组件",
-    "tab_general": "常规",
-    "tab_style": "样式",
+    # 缁勪欢缂栬緫
+    "edit_widget": "缂栬緫缁勪欢",
+    "tab_general": "甯歌",
+    "tab_style": "鏍峰紡",
     
-    "label_widget_name": "名称:",
-    "label_update_ms": "更新周期:",
-    "label_expression": "表达式:",
-    "label_prefix": "前缀:",
-    "label_postfix": "后缀:",
-    "label_width_chars": "宽度:",
-    "label_precision": "精度:",
-    "label_align": "对齐:",
-    "label_file": "文件:",
-    "label_visible": "可见:",
-    "label_length": "长度:",
-    "label_min": "最小值:",
-    "label_max": "最大值:",
-    "label_direction": "方向:",
-    "label_bar_color_0": "进度条颜色0:",
-    "label_bar_color_1": "进度条颜色1:",
+    "label_widget_name": "鍚嶇О:",
+    "label_update_ms": "鏇存柊鍛ㄦ湡:",
+    "label_expression": "琛ㄨ揪寮?",
+    "label_prefix": "鍓嶇紑:",
+    "label_postfix": "鍚庣紑:",
+    "label_width_chars": "瀹藉害:",
+    "label_precision": "绮惧害:",
+    "label_align": "瀵归綈:",
+    "label_file": "鏂囦欢:",
+    "label_visible": "鍙:",
+    "label_length": "闀垮害:",
+    "label_min": "鏈€灏忓€?",
+    "label_max": "鏈€澶у€?",
+    "label_direction": "鏂瑰悜:",
+    "label_bar_color_0": "杩涘害鏉￠鑹?:",
+    "label_bar_color_1": "杩涘害鏉￠鑹?:",
     
-    # 对齐选项
-    "align_left": "左对齐",
-    "align_center": "居中",
-    "align_right": "右对齐",
-    "align_marquee": "滚动",
-    "align_auto": "自动滚动",
-    "align_pingpong_l": "左右弹跳",
-    "align_pingpong_c": "居中弹跳",
-    "align_pingpong_r": "右左弹跳",
+    # 鎶樼嚎鍥惧弬鏁?    "label_graph_width": "瀹藉害:",
+    "label_graph_height": "楂樺害:",
+    "label_graph_points": "鏁版嵁鐐规暟:",
+    "label_graph_style": "鏍峰紡:",
+    "label_graph_color": "绾挎潯棰滆壊:",
+    "label_graph_fill": "濉厖棰滆壊:",
+    "label_graph_grid": "缃戞牸棰滆壊:",
+    "graph_style_line": "绾挎潯",
+    "graph_style_fill": "濉厖",
     
-    # 方向选项
-    "direction_east": "东(左→右)",
-    "direction_west": "西(右→左)",
-    "direction_north": "北(下→上)",
-    "direction_south": "南(上→下)",
+    # 寮у舰浠〃鍙傛暟
+    "label_arc_style": "鏍峰紡:",
+    "label_arc_ticks": "涓诲埢搴︽暟:",
+    "label_arc_minor": "缁嗗垎鍒诲害:",
+    "label_arc_thickness": "琛ㄧ洏鍘氬害:",
+    "label_arc_arc": "寮у舰棰滆壊:",
+    "label_arc_needle": "鎸囬拡棰滆壊:",
+    "label_arc_center": "涓績棰滆壊:",
+    "arc_style_semi": "鍗婂渾",
+    "arc_style_quarter": "鍥涘垎涔嬩竴鍦?,
+    "arc_style_full": "瀹屾暣鍦?,
     
-    # 布局
-    "layout_info": "布局信息",
-    "label_layout": "布局:",
-    "btn_add_layout": "+ 添加布局",
-    "btn_delete_layout": "删除",
+    # 瀵归綈閫夐」
+    "align_left": "宸﹀榻?,
+    "align_center": "灞呬腑",
+    "align_right": "鍙冲榻?,
+    "align_marquee": "婊氬姩",
+    "align_auto": "鑷姩婊氬姩",
+    "align_pingpong_l": "宸﹀彸寮硅烦",
+    "align_pingpong_c": "灞呬腑寮硅烦",
+    "align_pingpong_r": "鍙冲乏寮硅烦",
     
-    # 变量
-    "global_variables": "全局变量",
-    "label_tick_ms": "Tick (毫秒):",
-    "btn_add_variable": "+ 添加变量",
+    # 鏂瑰悜閫夐」
+    "direction_east": "涓?宸︹啋鍙?",
+    "direction_west": "瑗?鍙斥啋宸?",
+    "direction_north": "鍖?涓嬧啋涓?",
+    "direction_south": "鍗?涓娾啋涓?",
     
-    # 状态栏
-    "status_ready": "就绪",
-    "status_added": "已添加 {type} 组件: {name}",
-    "status_updated": "已更新组件: {name}",
-    "status_deleted": "已删除组件: {name}",
-    "status_saved": "已保存: {path}",
-    "status_opened": "已打开: {path}",
-    "status_exported": "已导出配置: {path}",
-    "status_new_project": "已创建新项目",
+    # 甯冨眬
+    "layout_info": "甯冨眬淇℃伅",
+    "label_layout": "甯冨眬:",
+    "btn_add_layout": "+ 娣诲姞甯冨眬",
+    "btn_delete_layout": "鍒犻櫎",
     
-    # 对话框
-    "confirm_exit": "退出",
-    "confirm_exit_msg": "确定要退出吗？",
-    "warn_cannot_delete": "警告",
-    "warn_cannot_delete_layout": "无法删除最后一个布局",
-    "error_title": "错误",
-    "error_open_failed": "无法打开项目: {error}",
-    "error_save_failed": "无法保存项目: {error}",
-    "error_export_failed": "无法导出配置: {error}",
-    "export_complete": "导出完成",
-    "export_complete_msg": "配置已导出到:\n{path}",
+    # 鍙橀噺
+    "global_variables": "鍏ㄥ眬鍙橀噺",
+    "label_tick_ms": "Tick (姣):",
+    "btn_add_variable": "+ 娣诲姞鍙橀噺",
     
-    # 画布
-    "btn_grid": "网格",
+    # 鐘舵€佹爮
+    "status_ready": "灏辩华",
+    "status_added": "宸叉坊鍔?{type} 缁勪欢: {name}",
+    "status_updated": "宸叉洿鏂扮粍浠? {name}",
+    "status_deleted": "宸插垹闄ょ粍浠? {name}",
+    "status_saved": "宸蹭繚瀛? {path}",
+    "status_opened": "宸叉墦寮€: {path}",
+    "status_exported": "宸插鍑洪厤缃? {path}",
+    "status_new_project": "宸插垱寤烘柊椤圭洰",
+    
+    # 瀵硅瘽妗?    "confirm_exit": "閫€鍑?,
+    "confirm_exit_msg": "纭畾瑕侀€€鍑哄悧锛?,
+    "warn_cannot_delete": "璀﹀憡",
+    "warn_cannot_delete_layout": "鏃犳硶鍒犻櫎鏈€鍚庝竴涓竷灞€",
+    "error_title": "閿欒",
+    "error_open_failed": "鏃犳硶鎵撳紑椤圭洰: {error}",
+    "error_save_failed": "鏃犳硶淇濆瓨椤圭洰: {error}",
+    "error_export_failed": "鏃犳硶瀵煎嚭閰嶇疆: {error}",
+    "export_complete": "瀵煎嚭瀹屾垚",
+    "export_complete_msg": "閰嶇疆宸插鍑哄埌:\n{path}",
+    
+    # 鐢诲竷
+    "btn_grid": "缃戞牸",
     "label_zoom": "%",
     
-    # 帮助
-    "help_title": "帮助",
-    "help_content": """LCD4Linux 可视化编辑器 - 帮助
+    # 甯姪
+    "help_title": "甯姪",
+    "help_content": """LCD4Linux 鍙鍖栫紪杈戝櫒 - 甯姪
 
-本工具用于创建 lcd4linux 配置文件，专为 AX206 DPF 显示器设计。
+鏈伐鍏风敤浜庡垱寤?lcd4linux 閰嶇疆鏂囦欢锛屼笓涓?AX206 DPF 鏄剧ず鍣ㄨ璁°€?
+涓昏鍔熻兘:
+- 鍙鍖栧竷灞€缂栬緫鍣紝鏀寔鎷栨斁
+- 澶氱缁勪欢绫诲瀷 (鏂囨湰銆佽繘搴︽潯銆佸浘鐗囥€佽鏃跺櫒銆佸浘鏍?
+- 瀹炴椂棰勮
+- 瀵煎嚭 lcd4linux.conf 鏍煎紡閰嶇疆
 
-主要功能:
-- 可视化布局编辑器，支持拖放
-- 多种组件类型 (文本、进度条、图片、计时器、图标)
-- 实时预览
-- 导出 lcd4linux.conf 格式配置
+蹇€熷叆闂?
+1. 閰嶇疆鏄剧ず鍣ㄨ缃?2. 浣跨敤鎸夐挳娣诲姞缁勪欢
+3. 鎷栧姩缁勪欢璋冩暣浣嶇疆
+4. 瀵煎嚭閰嶇疆鏂囦欢
 
-快速入门:
-1. 配置显示器设置
-2. 使用按钮添加组件
-3. 拖动组件调整位置
-4. 导出配置文件
-
-更多信息请访问:
+鏇村淇℃伅璇疯闂?
 https://wiki.lcd4linux.tk/
 """,
     
-    "about_title": "关于",
-    "about_content": """LCD4Linux 可视化编辑器
-版本 1.0
+    "about_title": "鍏充簬",
+    "about_content": """LCD4Linux 鍙鍖栫紪杈戝櫒
+鐗堟湰 1.0
 
-一款专为 AX206 DPF 显示器设计的 lcd4linux 可视化配置工具。
-
-类似于 AIDA64 LCD Manager。
-""",
+涓€娆句笓涓?AX206 DPF 鏄剧ず鍣ㄨ璁＄殑 lcd4linux 鍙鍖栭厤缃伐鍏枫€?
+绫讳技浜?AIDA64 LCD Manager銆?""",
     
-    # 组件类型
-    "widget_type_text": "文本",
-    "widget_type_bar": "进度条",
-    "widget_type_image": "图片",
-    "widget_type_timer": "计时器",
-    "widget_type_icon": "图标",
+    # 缁勪欢绫诲瀷
+    "widget_type_text": "鏂囨湰",
+    "widget_type_bar": "杩涘害鏉?,
+    "widget_type_image": "鍥剧墖",
+    "widget_type_timer": "璁℃椂鍣?,
+    "widget_type_icon": "鍥炬爣",
+    "widget_type_graph": "鎶樼嚎鍥?,
+    "widget_type_arc": "寮у舰浠〃",
     
-    # 右键菜单
-    "context_edit": "编辑",
-    "context_delete": "删除",
+    # 鍙抽敭鑿滃崟
+    "context_edit": "缂栬緫",
+    "context_delete": "鍒犻櫎",
     
-    # 文件对话框
-    "file_lcd4_project": "LCD4Linux 项目",
-    "file_lcd4_config": "lcd4linux 配置",
-    "file_all": "所有文件",
-    "file_save_title": "另存为",
-    "file_open_title": "打开项目",
-    "file_export_title": "导出 lcd4linux.conf",
+    # 鏂囦欢瀵硅瘽妗?    "file_lcd4_project": "LCD4Linux 椤圭洰",
+    "file_lcd4_config": "lcd4linux 閰嶇疆",
+    "file_all": "鎵€鏈夋枃浠?,
+    "file_save_title": "鍙﹀瓨涓?,
+    "file_open_title": "鎵撳紑椤圭洰",
+    "file_export_title": "瀵煎嚭 lcd4linux.conf",
 }
 
 def get_text(key, **kwargs):
-    """获取翻译文本"""
+    """鑾峰彇缈昏瘧鏂囨湰"""
     text = UI_TEXT.get(key, key)
     if kwargs:
         text = text.format(**kwargs)
     return text
 
 def set_language(lang):
-    """设置语言（预留）"""
+    """璁剧疆璇█锛堥鐣欙級"""
     pass
