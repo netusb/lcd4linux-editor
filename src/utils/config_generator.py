@@ -42,13 +42,40 @@ class ConfigGenerator:
         self.indent_level += 1
 
         lines.append(f"{' ' * self.indent_level}Driver '{display.driver}'")
-        lines.append(f"{' ' * self.indent_level}Port '{display.port}'")
-        lines.append(f"{' ' * self.indent_level}Font '{display.font}'")
+        
+        if display.port:
+            lines.append(f"{' ' * self.indent_level}Port '{display.port}'")
+        
+        if display.font:
+            lines.append(f"{' ' * self.indent_level}Font '{display.font}'")
+        
+        if hasattr(display, 'font_size') and display.font_size:
+            lines.append(f"{' ' * self.indent_level}FontSize '{display.font_size}'")
+        
+        if display.driver == "VNC":
+            if hasattr(display, 'vnc_port') and display.vnc_port:
+                lines.append(f"{' ' * self.indent_level}Port '{display.vnc_port}'")
+        
+        if display.driver == "X11":
+            if hasattr(display, 'x11_display') and display.x11_display:
+                lines.append(f"{' ' * self.indent_level}Display '{display.x11_display}'")
+        
+        lines.append(f"{' ' * self.indent_level}Xres '{display.width}'")
+        lines.append(f"{' ' * self.indent_level}Yres '{display.height}'")
+        
+        if hasattr(display, 'bpp') and display.bpp:
+            lines.append(f"{' ' * self.indent_level}Bpp '{display.bpp}'")
+        
         lines.append(f"{' ' * self.indent_level}Orientation {display.orientation}")
-        lines.append(f"{' ' * self.indent_level}Backlight {display.backlight}")
+        
+        if display.driver in ["DPF", "HD44780", "SamsungSPF"]:
+            lines.append(f"{' ' * self.indent_level}Backlight {display.backlight}")
+        
         lines.append(f"{' ' * self.indent_level}Foreground '{display.foreground}'")
         lines.append(f"{' ' * self.indent_level}Background '{display.background}'")
-        lines.append(f"{' ' * self.indent_level}Basecolor '{display.basecolor}'")
+        
+        if hasattr(display, 'basecolor') and display.basecolor:
+            lines.append(f"{' ' * self.indent_level}Basecolor '{display.basecolor}'")
 
         self.indent_level -= 1
         lines.append("}")
