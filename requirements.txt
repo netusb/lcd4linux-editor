@@ -1,0 +1,7 @@
+# LCD4Linux Visual Editor - Requirements
+
+# Core requirements (usually included with Python)
+# tkinter - Usually comes with Python installer on Windows
+
+# Build requirements (for creating .exe)
+pyinstaller>=5.0.0
