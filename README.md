@@ -1,16 +1,17 @@
 # LCD4Linux Visual Editor
 
-Visual editor for lcd4linux configuration, designed for AX206 DPF displays.
+Visual editor for lcd4linux configuration with support for 50+ display drivers.
 
 ## Features
 
 - Visual layout editor with drag-and-drop support
 - Multiple widget types: Text, Bar, Image, Timer, Icon, Graph, Arc
+- **50+ Display Drivers Support** (DPF, VNC, SamsungSPF, X11, and more)
 - Real-time preview of the display layout
 - Configuration export for lcd4linux
 - Project save/load functionality (.lcd4 format)
-- AX206 DPF display support
-- **Chinese UI**
+- **Chinese UI (涓枃鐣岄潰)**
+- TrueType font support for Chinese characters
 
 ## Installation
 
@@ -26,12 +27,43 @@ pyinstaller lcd4linux_editor.spec
 
 Executable location: `dist/LCD4Linux_Editor/LCD4Linux_Editor.exe`
 
+## Supported Display Drivers
+
+### Graphic Displays (鍥惧舰鏄剧ず)
+- **DPF** - Digital Photo Frame (AX206, etc.)
+- **VNC** - VNC Server
+- **SamsungSPF** - Samsung SPF displays
+- **X11** - X11 Display
+- **T6963** - T6963 LCD Controller
+- **G15** - Logitech G15 Keyboard
+- **Framebuffer** - Linux Framebuffer
+
+### Character Displays (瀛楃鏄剧ず)
+- **HD44780** - HD44780 Character LCD
+- **Curses** - Curses Terminal
+- **MatrixOrbital** - MatrixOrbital LCD
+- **Noritake** - Noritake VFD
+- And more...
+
+### USB Devices (USB璁惧)
+- **LCD2USB** - LCD2USB
+- **USBLCD** - USBLCD
+- **picoLCD** - picoLCD
+
+### Network Devices (缃戠粶璁惧)
+- **VNC** - VNC Server
+- **LCDTerm** - LCD Terminal
+- **RouterBoard** - RouterBoard
+
+For full list of 50+ supported drivers, see the source code.
+
 ## Usage
 
-1. Configure Display settings (DPF driver, resolution)
-2. Add widgets using the buttons (Text, Bar, Image, etc.)
-3. Drag widgets to position them on the canvas
-4. Export configuration to lcd4linux.conf
+1. Select Display Driver from the dropdown
+2. Configure Display settings (resolution, font, port, etc.)
+3. Add widgets using the buttons (Text, Bar, Image, Graph, Arc, etc.)
+4. Drag widgets to position them on the canvas
+5. Export configuration to lcd4linux.conf
 
 ## Supported Widgets
 
@@ -47,16 +79,28 @@ Executable location: `dist/LCD4Linux_Editor/LCD4Linux_Editor.exe`
 
 ## Display Configuration
 
-- Driver: DPF (for AX206 displays)
-- Port: usb0, usb1, etc.
-- Font: 6x8, 8x10, 8x12, 10x14, 12x16
+### Common Parameters
+- Driver: Select from 50+ supported drivers
+- Port: Device/port identifier
+- Width/Height: Display resolution
+- Bpp: Color depth (1-32)
 - Orientation: Landscape, Portrait, etc.
-- Backlight: 0-7 levels
-- Colors: Foreground/Background/Base
+- Foreground/Background: Colors
+
+### Font Settings (鍥惧舰鏄剧ず)
+- Font: TrueType font file path
+- FontSize: Font size (8-64)
+
+### VNC Settings
+- Port: VNC port (default: 5900)
+
+### X11 Settings
+- Display: X11 display identifier (default: :0)
 
 ## More Info
 
 - LCD4Linux Wiki: https://wiki.lcd4linux.tk/
+- Chinese Display Project: https://github.com/netusb/lcd4linux-display-chinese
 
 ## License
 
