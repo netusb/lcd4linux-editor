@@ -29,7 +29,7 @@ from typing import Dict, List, Optional, Any
 from models import (
     WidgetType, Alignment, BarDirection, BarStyle,
     DisplayConfig, LayoutPosition, WidgetPlacement,
-    LayoutConfig, VariablesConfig, ProjectConfig
+    LayoutConfig, VariablesConfig, ProjectConfig, DRIVER_CATEGORIES
 )
 from widgets.text_widget import TextWidgetConfig
 from widgets.bar_widget import BarWidgetConfig
@@ -39,7 +39,7 @@ from widgets.icon_widget import IconWidgetConfig
 from widgets.graph_widget import GraphWidgetConfig
 from widgets.arc_widget import ArcWidgetConfig
 from utils.config_generator import ConfigGenerator
-from i18n import get_text, UI_TEXT
+from i18n import get_text, UI_TEXT, get_driver_name
 
 
 class LCD4LinuxEditor(tk.Tk):
@@ -161,44 +161,75 @@ class LCD4LinuxEditor(tk.Tk):
         display_tab = ttk.Frame(notebook)
         notebook.add(display_tab, text=UI_TEXT["tab_display"])
 
-        frame = ttk.LabelFrame(display_tab, text=UI_TEXT["display_settings"], style="Config.TLabelframe", padding=10)
+        canvas = tk.Canvas(display_tab)
+        scrollbar = ttk.Scrollbar(display_tab, orient="vertical", command=canvas.yview)
+        scroll_frame = ttk.Frame(canvas)
+
+        scroll_frame.bind(
+            "<Configure>",
+            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+        )
+
+        canvas.create_window((0, 0), window=scroll_frame, anchor="nw")
+        canvas.configure(yscrollcommand=scrollbar.set)
+        canvas.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
+
+        frame = ttk.LabelFrame(scroll_frame, text=UI_TEXT["display_settings"], style="Config.TLabelframe", padding=10)
         frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
         row = 0
         ttk.Label(frame, text=UI_TEXT["label_name"]).grid(row=row, column=0, sticky=tk.W, pady=5)
-        self.display_name = ttk.Entry(frame, width=20)
+        self.display_name = ttk.Entry(frame, width=25)
         self.display_name.insert(0, self.project.display.name)
         self.display_name.grid(row=row, column=1, sticky=tk.W, pady=5)
         row += 1
 
         ttk.Label(frame, text=UI_TEXT["label_driver"]).grid(row=row, column=0, sticky=tk.W, pady=5)
-        self.display_driver = ttk.Combobox(frame, values=["DPF", "HD44780", "Framebuffer"], width=18)
+        all_drivers = []
+        for cat, drivers in DRIVER_CATEGORIES.items():
+            all_drivers.extend(drivers)
+        self.display_driver = ttk.Combobox(frame, values=all_drivers, width=22)
         self.display_driver.set(self.project.display.driver)
         self.display_driver.grid(row=row, column=1, sticky=tk.W, pady=5)
+        self.display_driver.bind("<<ComboboxSelected>>", self._on_driver_changed)
         row += 1
 
         ttk.Label(frame, text=UI_TEXT["label_port"]).grid(row=row, column=0, sticky=tk.W, pady=5)
-        self.display_port = ttk.Entry(frame, width=20)
+        self.display_port = ttk.Entry(frame, width=25)
         self.display_port.insert(0, self.project.display.port)
         self.display_port.grid(row=row, column=1, sticky=tk.W, pady=5)
         row += 1
 
         ttk.Label(frame, text=UI_TEXT["label_font"]).grid(row=row, column=0, sticky=tk.W, pady=5)
-        self.display_font = ttk.Combobox(frame, values=["6x8", "8x10", "8x12", "10x14", "12x16"], width=18)
-        self.display_font.set(self.project.display.font)
+        self.display_font = ttk.Entry(frame, width=25)
+        self.display_font.insert(0, self.project.display.font)
         self.display_font.grid(row=row, column=1, sticky=tk.W, pady=5)
+        ttk.Button(frame, text="...", width=3, command=self.browse_font).grid(row=row, column=2, sticky=tk.W, padx=2)
+        row += 1
+
+        ttk.Label(frame, text=UI_TEXT["label_font_size"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.display_font_size = ttk.Spinbox(frame, from_=8, to=64, width=22)
+        self.display_font_size.set(self.project.display.font_size)
+        self.display_font_size.grid(row=row, column=1, sticky=tk.W, pady=5)
         row += 1
 
         ttk.Label(frame, text=UI_TEXT["label_width"]).grid(row=row, column=0, sticky=tk.W, pady=5)
-        self.display_width = ttk.Spinbox(frame, from_=64, to=800, width=18)
+        self.display_width = ttk.Spinbox(frame, from_=16, to=1920, width=22)
         self.display_width.set(self.project.display.width)
         self.display_width.grid(row=row, column=1, sticky=tk.W, pady=5)
         row += 1
 
         ttk.Label(frame, text=UI_TEXT["label_height"]).grid(row=row, column=0, sticky=tk.W, pady=5)
-        self.display_height = ttk.Spinbox(frame, from_=32, to=600, width=18)
+        self.display_height = ttk.Spinbox(frame, from_=16, to=1080, width=22)
         self.display_height.set(self.project.display.height)
         self.display_height.grid(row=row, column=1, sticky=tk.W, pady=5)
+        row += 1
+
+        ttk.Label(frame, text=UI_TEXT["label_bpp"]).grid(row=row, column=0, sticky=tk.W, pady=5)
+        self.display_bpp = ttk.Combobox(frame, values=["1", "2", "4", "8", "16", "24", "32"], width=22)
+        self.display_bpp.set(str(self.project.display.bpp))
+        self.display_bpp.grid(row=row, column=1, sticky=tk.W, pady=5)
         row += 1
 
         ttk.Label(frame, text=UI_TEXT["label_orientation"]).grid(row=row, column=0, sticky=tk.W, pady=5)
@@ -207,15 +238,35 @@ class LCD4LinuxEditor(tk.Tk):
             UI_TEXT["orientation_portrait"],
             UI_TEXT["orientation_rev_landscape"],
             UI_TEXT["orientation_rev_portrait"]
-        ], width=18)
+        ], width=22)
         self.display_orientation.current(self.project.display.orientation)
         self.display_orientation.grid(row=row, column=1, sticky=tk.W, pady=5)
         row += 1
 
         ttk.Label(frame, text=UI_TEXT["label_backlight"]).grid(row=row, column=0, sticky=tk.W, pady=5)
-        self.display_backlight = ttk.Scale(frame, from_=0, to=7, orient=tk.HORIZONTAL, length=120)
+        self.display_backlight = ttk.Scale(frame, from_=0, to=7, orient=tk.HORIZONTAL, length=150)
         self.display_backlight.set(self.project.display.backlight)
         self.display_backlight.grid(row=row, column=1, sticky=tk.W, pady=5)
+        row += 1
+
+        self.vnc_frame = ttk.LabelFrame(frame, text="VNC璁剧疆", padding=5)
+        self.vnc_frame.grid(row=row, column=0, columnspan=2, sticky=tk.W, pady=10)
+        
+        ttk.Label(self.vnc_frame, text=UI_TEXT["label_vnc_port"]).grid(row=0, column=0, sticky=tk.W, pady=2)
+        self.vnc_port = ttk.Spinbox(self.vnc_frame, from_=1024, to=65535, width=20)
+        self.vnc_port.set(self.project.display.vnc_port)
+        self.vnc_port.grid(row=0, column=1, sticky=tk.W, pady=2)
+        self.vnc_frame.grid_remove()
+        row += 1
+
+        self.x11_frame = ttk.LabelFrame(frame, text="X11璁剧疆", padding=5)
+        self.x11_frame.grid(row=row, column=0, columnspan=2, sticky=tk.W, pady=10)
+        
+        ttk.Label(self.x11_frame, text=UI_TEXT["label_x11_display"]).grid(row=0, column=0, sticky=tk.W, pady=2)
+        self.x11_display = ttk.Entry(self.x11_frame, width=20)
+        self.x11_display.insert(0, self.project.display.x11_display)
+        self.x11_display.grid(row=0, column=1, sticky=tk.W, pady=2)
+        self.x11_frame.grid_remove()
         row += 1
 
         color_frame = ttk.LabelFrame(frame, text=UI_TEXT["label_colors"], padding=5)
@@ -231,13 +282,35 @@ class LCD4LinuxEditor(tk.Tk):
                                        width=3, command=self.choose_bg_color)
         self.bg_color_btn.grid(row=1, column=1, padx=5, pady=5)
 
+        self._on_driver_changed()
         self.display_port.bind("<FocusOut>", lambda e: self.update_display_config())
         self.display_width.bind("<FocusOut>", lambda e: self.update_display_config())
         self.display_height.bind("<FocusOut>", lambda e: self.update_display_config())
         self.display_driver.bind("<<ComboboxSelected>>", lambda e: self.update_display_config())
-        self.display_font.bind("<<ComboboxSelected>>", lambda e: self.update_display_config())
+        self.display_font.bind("<FocusOut>", lambda e: self.update_display_config())
+        self.display_font_size.bind("<FocusOut>", lambda e: self.update_display_config())
         self.display_orientation.bind("<<ComboboxSelected>>", lambda e: self.update_display_config())
         self.display_backlight.bind("<ButtonRelease-1>", lambda e: self.update_display_config())
+        self.display_bpp.bind("<<ComboboxSelected>>", lambda e: self.update_display_config())
+
+    def _on_driver_changed(self):
+        driver = self.display_driver.get()
+        if driver == "VNC":
+            self.vnc_frame.grid()
+            self.x11_frame.grid_remove()
+        elif driver == "X11":
+            self.vnc_frame.grid_remove()
+            self.x11_frame.grid()
+        else:
+            self.vnc_frame.grid_remove()
+            self.x11_frame.grid_remove()
+
+    def browse_font(self):
+        filename = filedialog.askopenfilename(title="閫夋嫨瀛椾綋鏂囦欢", filetypes=[("TTF瀛椾綋", "*.ttf *.TTC"), ("鎵€鏈夋枃浠?, "*.*")])
+        if filename:
+            self.display_font.delete(0, tk.END)
+            self.display_font.insert(0, filename)
+            self.update_display_config()
 
     def _create_widgets_panel(self, notebook):
         widgets_tab = ttk.Frame(notebook)
@@ -574,10 +647,15 @@ class LCD4LinuxEditor(tk.Tk):
         self.project.display.driver = self.display_driver.get()
         self.project.display.port = self.display_port.get()
         self.project.display.font = self.display_font.get()
+        self.project.display.font_size = int(self.display_font_size.get())
         self.project.display.width = int(self.display_width.get())
         self.project.display.height = int(self.display_height.get())
+        self.project.display.bpp = int(self.display_bpp.get())
         self.project.display.orientation = self.display_orientation.current()
         self.project.display.backlight = int(self.display_backlight.get())
+        self.project.display.vnc_port = int(self.vnc_port.get())
+        self.project.display.x11_display = self.x11_display.get()
+        self._on_driver_changed()
         self._draw_canvas()
 
     def update_variables(self):
@@ -668,7 +746,8 @@ class LCD4LinuxEditor(tk.Tk):
             self.display_driver.set(self.project.display.driver)
             self.display_port.delete(0, tk.END)
             self.display_port.insert(0, self.project.display.port)
-            self.display_font.set(self.project.display.font)
+            self.display_font.delete(0, tk.END)
+            self.display_font.insert(0, self.project.display.font)
             self.display_width.set(self.project.display.width)
             self.display_height.set(self.project.display.height)
             self.display_orientation.current(self.project.display.orientation)
