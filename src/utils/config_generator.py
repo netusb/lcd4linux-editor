@@ -6,7 +6,7 @@ Generates lcd4linux.conf from the project configuration
 from typing import Dict, Any, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from ..main import ProjectConfig, WidgetPlacement
+    from ..models import ProjectConfig
 
 class ConfigGenerator:
     def __init__(self):
@@ -80,6 +80,10 @@ class ConfigGenerator:
             lines.extend(self._generate_timer_widget(widget))
         elif widget_type == "icon":
             lines.extend(self._generate_icon_widget(widget))
+        elif widget_type == "graph":
+            lines.extend(self._generate_graph_widget(widget))
+        elif widget_type == "arc":
+            lines.extend(self._generate_arc_widget(widget))
 
         lines.append("}")
 
@@ -220,6 +224,92 @@ class ConfigGenerator:
 
         if widget.visible != 1:
             lines.append(f"{indent}visible {widget.visible}")
+
+        return lines
+
+    def _generate_graph_widget(self, widget) -> list:
+        lines = []
+        indent = "    "
+
+        lines.append(f"{indent}class 'Graph'")
+
+        if widget.expression:
+            lines.append(f"{indent}expression {widget.expression}")
+
+        lines.append(f"{indent}width {widget.width}")
+        lines.append(f"{indent}height {widget.height}")
+
+        if widget.min_val != 0:
+            lines.append(f"{indent}min {widget.min_val}")
+
+        if widget.max_val != 100:
+            lines.append(f"{indent}max {widget.max_val}")
+
+        lines.append(f"{indent}update {widget.update}")
+
+        if widget.points != 50:
+            lines.append(f"{indent}points {widget.points}")
+
+        if widget.style != 0:
+            lines.append(f"{indent}style {widget.style}")
+
+        if widget.color != "00FF00":
+            lines.append(f"{indent}color '{widget.color}'")
+
+        if widget.fill != "003300":
+            lines.append(f"{indent}fill '{widget.fill}'")
+
+        if widget.bg != "000000":
+            lines.append(f"{indent}bg '{widget.bg}'")
+
+        if widget.grid != "404040":
+            lines.append(f"{indent}grid '{widget.grid}'")
+
+        return lines
+
+    def _generate_arc_widget(self, widget) -> list:
+        lines = []
+        indent = "    "
+
+        lines.append(f"{indent}class 'Arc'")
+
+        if widget.expression:
+            lines.append(f"{indent}expression {widget.expression}")
+
+        lines.append(f"{indent}width {widget.width}")
+        lines.append(f"{indent}height {widget.height}")
+
+        if widget.min_val != 0:
+            lines.append(f"{indent}min {widget.min_val}")
+
+        if widget.max_val != 100:
+            lines.append(f"{indent}max {widget.max_val}")
+
+        lines.append(f"{indent}update {widget.update}")
+
+        if widget.style != "semi":
+            lines.append(f"{indent}style '{widget.style}'")
+
+        if widget.ticks != 5:
+            lines.append(f"{indent}ticks {widget.ticks}")
+
+        if widget.minor != 5:
+            lines.append(f"{indent}minor {widget.minor}")
+
+        if widget.thickness != 8:
+            lines.append(f"{indent}thickness {widget.thickness}")
+
+        if widget.arc != "404040":
+            lines.append(f"{indent}arc '{widget.arc}'")
+
+        if widget.needle != "FF0000":
+            lines.append(f"{indent}needle '{widget.needle}'")
+
+        if widget.center != "808080":
+            lines.append(f"{indent}center '{widget.center}'")
+
+        if widget.bg != "000000":
+            lines.append(f"{indent}bg '{widget.bg}'")
 
         return lines
 
