@@ -14,6 +14,8 @@ class WidgetType(Enum):
     IMAGE = "Image"
     TIMER = "Timer"
     ICON = "Icon"
+    GRAPH = "Graph"
+    ARC = "Arc"
 
 
 class Alignment(Enum):
