@@ -5,7 +5,7 @@ Visual editor for lcd4linux configuration, designed for AX206 DPF displays.
 ## Features
 
 - Visual layout editor with drag-and-drop support
-- Multiple widget types: Text, Bar, Image, Timer, Icon
+- Multiple widget types: Text, Bar, Image, Timer, Icon, Graph, Arc
 - Real-time preview of the display layout
 - Configuration export for lcd4linux
 - Project save/load functionality (.lcd4 format)
@@ -40,6 +40,10 @@ Executable location: `dist/LCD4Linux_Editor/LCD4Linux_Editor.exe`
 - **Image**: PNG image display
 - **Timer**: Countdown/elapsed time
 - **Icon**: Icon display based on expressions
+- **Graph**: Line/area chart for historical data (AIDA64 style)
+  - Parameters: expression, width, height, min, max, update, points, style (0=line, 1=fill), color, fill, bg, grid
+- **Arc**: Arc gauge dashboard (AIDA64 style)
+  - Parameters: expression, width, height, min, max, update, style (semi/quarter/full), ticks, minor, thickness, needle, arc, center, bg
 
 ## Display Configuration
 
