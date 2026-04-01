@@ -1,107 +1,107 @@
-# LCD4Linux Visual Editor
+# LCD4Linux 可视化编辑器
 
-Visual editor for lcd4linux configuration with support for 50+ display drivers.
+用于 lcd4linux 配置的可视化编辑器，支持 50+ 种显示驱动。
 
-## Features
+## 功能特性
 
-- Visual layout editor with drag-and-drop support
-- Multiple widget types: Text, Bar, Image, Timer, Icon, Graph, Arc
-- **50+ Display Drivers Support** (DPF, VNC, SamsungSPF, X11, and more)
-- Real-time preview of the display layout
-- Configuration export for lcd4linux
-- Project save/load functionality (.lcd4 format)
-- **Chinese UI (涓枃鐣岄潰)**
-- TrueType font support for Chinese characters
+- 可视化布局编辑器，支持拖放功能
+- 多种组件类型：文本、进度条、图片、计时器、图标、折线图、弧形仪表
+- **支持 50+ 种显示驱动**（DPF、VNC、SamsungSPF、X11 等）
+- 实时预览显示布局
+- 导出 lcd4linux 配置文件
+- 项目保存/加载功能（.lcd4 格式）
+- **中文界面**
+- 支持 TrueType 字体显示中文字符
 
-## Installation
+## 安装
 
 ```bash
 pip install pyinstaller
 ```
 
-## Build Executable
+## 编译可执行文件
 
 ```bash
 pyinstaller lcd4linux_editor.spec
 ```
 
-Executable location: `dist/LCD4Linux_Editor/LCD4Linux_Editor.exe`
+可执行文件位置：`dist/LCD4Linux_Editor/LCD4Linux_Editor.exe`
 
-## Supported Display Drivers
+## 支持的显示驱动
 
-### Graphic Displays (鍥惧舰鏄剧ず)
-- **DPF** - Digital Photo Frame (AX206, etc.)
-- **VNC** - VNC Server
-- **SamsungSPF** - Samsung SPF displays
-- **X11** - X11 Display
-- **T6963** - T6963 LCD Controller
-- **G15** - Logitech G15 Keyboard
-- **Framebuffer** - Linux Framebuffer
+### 图形显示
+- **DPF** - 数码相框（AX206 等）
+- **VNC** - VNC 服务器
+- **SamsungSPF** - 三星电子相框
+- **X11** - X11 显示
+- **T6963** - T6963 LCD 控制器
+- **G15** - Logitech G15 键盘
+- **Framebuffer** - Linux 帧缓冲
 
-### Character Displays (瀛楃鏄剧ず)
-- **HD44780** - HD44780 Character LCD
-- **Curses** - Curses Terminal
+### 字符显示
+- **HD44780** - HD44780 字符 LCD
+- **Curses** - 终端界面
 - **MatrixOrbital** - MatrixOrbital LCD
 - **Noritake** - Noritake VFD
-- And more...
+- 以及更多...
 
-### USB Devices (USB璁惧)
+### USB 设备
 - **LCD2USB** - LCD2USB
 - **USBLCD** - USBLCD
 - **picoLCD** - picoLCD
 
-### Network Devices (缃戠粶璁惧)
-- **VNC** - VNC Server
-- **LCDTerm** - LCD Terminal
+### 网络设备
+- **VNC** - VNC 服务器
+- **LCDTerm** - LCD 终端
 - **RouterBoard** - RouterBoard
 
-For full list of 50+ supported drivers, see the source code.
+完整支持的 50+ 种驱动列表请参考源代码。
 
-## Usage
+## 使用方法
 
-1. Select Display Driver from the dropdown
-2. Configure Display settings (resolution, font, port, etc.)
-3. Add widgets using the buttons (Text, Bar, Image, Graph, Arc, etc.)
-4. Drag widgets to position them on the canvas
-5. Export configuration to lcd4linux.conf
+1. 从下拉菜单中选择显示驱动
+2. 配置显示设置（分辨率、字体、端口等）
+3. 使用按钮添加组件（文本、进度条、图片、折线图、弧形仪表等）
+4. 拖动组件在画布上定位
+5. 导出配置到 lcd4linux.conf 文件
 
-## Supported Widgets
+## 支持的组件
 
-- **Text**: Dynamic/static text with expressions
-- **Bar**: Progress bars with min/max values
-- **Image**: PNG image display
-- **Timer**: Countdown/elapsed time
-- **Icon**: Icon display based on expressions
-- **Graph**: Line/area chart for historical data (AIDA64 style)
-  - Parameters: expression, width, height, min, max, update, points, style (0=line, 1=fill), color, fill, bg, grid
-- **Arc**: Arc gauge dashboard (AIDA64 style)
-  - Parameters: expression, width, height, min, max, update, style (semi/quarter/full), ticks, minor, thickness, needle, arc, center, bg
+- **文本**：支持表达式的动态/静态文本
+- **进度条**：带最小/最大值的进度条
+- **图片**：PNG 图片显示
+- **计时器**：倒计时/已用时间
+- **图标**：基于表达式的图标显示
+- **折线图**：历史数据折线图/面积图（AIDA64 风格）
+  - 参数：表达式、宽度、高度、最小值、最大值、更新周期、数据点数、样式（0=线条，1=填充）、颜色、填充色、背景色、网格色
+- **弧形仪表**：弧形仪表盘（AIDA64 风格）
+  - 参数：表达式、宽度、高度、最小值、最大值、更新周期、样式（半圆/四分之一圆/完整圆）、主刻度数、细分刻度、表盘厚度、指针颜色、弧形颜色、中心颜色、背景色
 
-## Display Configuration
+## 显示配置
 
-### Common Parameters
-- Driver: Select from 50+ supported drivers
-- Port: Device/port identifier
-- Width/Height: Display resolution
-- Bpp: Color depth (1-32)
-- Orientation: Landscape, Portrait, etc.
-- Foreground/Background: Colors
+### 通用参数
+- 驱动：从 50+ 种支持的驱动中选择
+- 端口：设备/端口标识符
+- 宽度/高度：显示分辨率
+- 颜色深度：1-32 位
+- 方向：横向、纵向等
+- 前景色/背景色：颜色设置
 
-### Font Settings (鍥惧舰鏄剧ず)
-- Font: TrueType font file path
-- FontSize: Font size (8-64)
+### 字体设置（图形显示）
+- 字体：TrueType 字体文件路径
+- 字号：字体大小（8-64）
 
-### VNC Settings
-- Port: VNC port (default: 5900)
+### VNC 设置
+- 端口：VNC 端口（默认：5900）
 
-### X11 Settings
-- Display: X11 display identifier (default: :0)
+### X11 设置
+- 显示：X11 显示标识符（默认：:0）
 
-## More Info
+## 更多信息
 
-- LCD4Linux Wiki: https://wiki.lcd4linux.tk/
-- Chinese Display Project: https://github.com/netusb/lcd4linux-display-chinese
+- LCD4Linux Wiki：https://wiki.lcd4linux.tk/
+- 中文显示项目：https://github.com/netusb/lcd4linux-display-chinese
 
-## License
+## 许可证
 
-MIT License
+MIT 许可证
